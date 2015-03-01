@@ -1,0 +1,97 @@
+<html>
+	<head><title>QR Code Reader</title>
+	<style>
+	
+	body {
+		width:1000px;
+		margin:0 auto;
+		}
+	#webcam {
+		margin-top:20px;
+		margin-bottom:20px;
+		width:400px;
+		}
+		
+	.opensans {
+		font-size:70px;
+		font-family:"Open Sans";
+		text-align:center;
+		padding:10px;
+		border-bottom:1px solid #f3f3f3;
+		}
+		
+			.opensans1 {
+		font-size:18px;
+		font-family:"Open Sans";
+		text-align:center;
+		}
+		
+	a {
+		color:#ff5050;
+		text-decoration:none;
+		}
+	a:hover {
+		color:black;
+		}
+	.red {
+		color:red;
+		}
+	
+	</style>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+	<script src="scriptcam.js"></script>
+	<script>
+	
+	 $(document).ready(function() {
+                $("#webcam").scriptcam({
+                    onError:onError,
+                    cornerRadius:0,
+                    onWebcamReady:onWebcamReady
+                });
+                setInterval(check, 1000);
+                function check() {
+             var email=$.scriptcam.getBarCode();
+             if (email) {
+               //  window.location = "https://mail.google.com/mail/?view=cm&fs=1&tf=1&source=mailto&to="+email;
+               window.location = "welcome.php?q=" + email;
+            }
+                }
+            });
+
+            function onError(errorId,errorMsg) {
+                alert(errorMsg);
+            }           
+            function changeCamera() {
+                $.scriptcam.changeCamera($('#cameraNames').val());
+            }
+            function onWebcamReady(cameraNames,camera,microphoneNames,microphone,volume) {
+                $.each(cameraNames, function(index, text) {
+                    $('#cameraNames').append( $('<option></option>').val(index).html(text) )
+                }); 
+                $('#cameraNames').val(camera);
+            }
+	
+	</script>
+	</head>
+	
+	<body>
+	
+
+		<div class="opensans">QR AutoCheckin System</div>
+            <center><div id="webcam" >
+
+            </div></center> 
+           <div class="opensans1">
+           Show you code QRCode to show case your Project. To Generate your QRCode please follow the link <a href="https://www.the-qrcode-generator.com/">Genrate QR Code</a>
+           </div>
+
+<hr color=#f3f3f3>
+<p class="opensans1">Code by Prasanna Vijayan<br><Br><p class="opensans1 red">Qrcode Must contain only email address, Prasanna Vijayan &copy; GSA 91 2014</p></p>
+	
+	
+	
+	
+	</body>
+</html>
